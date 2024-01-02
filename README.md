@@ -10,7 +10,9 @@ These exercises are designed for any software engineer looking to learn about an
 
 ## Knowledge prerequisits
 
-Although these exercises are aimed at less experienced developers, there are some requirements to be able to meaningfully complete the exericses. Understanding of object oriented programming is needed. And as this repo is in Python, you also need to know Python.
+Although these exercises are aimed at less experienced developers, there are some requirements to be able to meaningfully complete the exericses. Understanding of object oriented programming is needed. And as this repo is in Python, you also need to know Python. Also, some knowledge of regular expressions is recommended for some of the exercises. But not crucial. If you don't understand something, [Regex101](https://regex101.com/) can probably help you.
+
+The code is also using type hints. If you are not familiar with these, or don't want to bother, just ignore/delete them.
 
 ## Code prerequisits
 
