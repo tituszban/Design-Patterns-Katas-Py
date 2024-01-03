@@ -124,18 +124,14 @@ def validate(user_data: dict[str, str]):
 
 
 def run_example():
-    examples = [
-        {},
-    ]
+    example = {}
 
-    for example in examples:
-        print("===")
-        print(f"Example: {example}")
-        valid, errors = validate(example)
-        print(f"Valid: {valid}")
-        if not valid:
-            print("Errors:")
-            print(errors)
+    print(f"Example: {example}")
+    valid, errors = validate(example)
+    print(f"Valid: {valid}")
+    if not valid:
+        print("Errors:")
+        print(errors)
 
 
 if __name__ == "__main__":

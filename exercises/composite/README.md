@@ -4,7 +4,7 @@ The Composit Pattern is a Structural pattern first published in the Gang of Four
 
 TODO: Write about the use cases of this pattern
 
-## Composite pattern exercise
+## Composite Pattern Exercise
 
 In this exercise, you are validating a user registration into your system. There are multiple different ways the user can register, and you must not only validate that the registration is valid, but also provide verbose information to the user if it is not, including each of the fields that are incorrect, and which of them the user must complete.
 
