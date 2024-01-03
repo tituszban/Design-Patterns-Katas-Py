@@ -2,7 +2,7 @@
 
 Welcome to this repository of refactoring exercises (or Katas). The goal of each of these exercises is to learn about [Design Patterns](https://en.wikipedia.org/wiki/Software_design_pattern) by taking a semi-realistic example and improving it using one of the Design Patterns.
 
-Each of the folders within [exercises](./exercises/) contains one folder with the exercise setup, and a README with more details. To see an example solution, try the [`solutions` branch]()
+Each of the folders within [exercises](./exercises/) contains one folder with the exercise setup, and a README with more details. To see an example solution, try the [`solutions` branch](https://github.com/tituszban/Design-Patterns-Katas-Py/tree/solutions)
 
 ## Who are these exercises for?
 
