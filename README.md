@@ -73,7 +73,7 @@ python ./exercises/composite/composite.py
 Or, you may chose to write unit tests, and run those:
 
 ```
-pytest .\exercises\composite\
+pytest ./exercises/composite/
 ```
 
 ## Feedback and contribution

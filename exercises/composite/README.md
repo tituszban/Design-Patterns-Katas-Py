@@ -2,7 +2,7 @@
 
 The Composit Pattern is a Structural pattern first published in the Gang of Four book _Design Patterns: Elements of Reusable Object-Oriented Software_.
 
-TODO: Write about the use cases of this pattern
+TODO: Write about the use cases of this pattern. In the meantime, read about the [Composite Pattern of Wikipedia](https://en.wikipedia.org/wiki/Composite_pattern)
 
 ## Composite Pattern Exercise
 
