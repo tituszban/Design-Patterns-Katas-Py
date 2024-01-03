@@ -150,7 +150,7 @@ def validate(user_data: dict[str, str]):
             ),
             PropertyLengthRange("postcode", 1, 10),
         ),
-    )
+    )   # TODO: add actual exercise goals
 
     return conditions.validate(user_data)
 

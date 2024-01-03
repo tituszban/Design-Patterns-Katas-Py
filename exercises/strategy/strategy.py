@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from abc import ABC, abstractmethod
 
 
 # Models:
@@ -23,172 +24,139 @@ class MonthlyRepayment:
     remaining_duration: int
 
 
-def create_monthly_repayment(loan_info: LoanInfo) -> MonthlyRepayment:
-    interest_payment = loan_info.amount * loan_info.interest / 12 / 100
-    variable_interest_payment = loan_info.amount * (loan_info.interest + loan_info.libor) / 12 / 100
-    repayment = loan_info.amount / loan_info.remaining_duration
-    duration_so_far = loan_info.original_duration - loan_info.remaining_duration
-    if loan_info.loan_kind == "interest_only":
-        if loan_info.remaining_duration <= 1:
-            return MonthlyRepayment(
-                loan_id=loan_info.loan_id,
-                payment=round(interest_payment + loan_info.amount, 4),
-                amount_remaining=round(0, 4),
-                remaining_duration=loan_info.remaining_duration - 1,
-            )
-        return MonthlyRepayment(
-            loan_id=loan_info.loan_id,
-            payment=round(interest_payment, 4),
-            amount_remaining=round(loan_info.amount, 4),
-            remaining_duration=loan_info.remaining_duration - 1,
-        )
-    if loan_info.loan_kind == "interest_only_variable":
-        if loan_info.remaining_duration <= 1:
-            return MonthlyRepayment(
-                loan_id=loan_info.loan_id,
-                payment=round(variable_interest_payment + loan_info.amount, 4),
-                amount_remaining=round(0, 4),
-                remaining_duration=loan_info.remaining_duration - 1,
-            )
-        return MonthlyRepayment(
-            loan_id=loan_info.loan_id,
-            payment=round(variable_interest_payment, 4),
-            amount_remaining=round(loan_info.amount, 4),
-            remaining_duration=loan_info.remaining_duration - 1,
-        )
-    if loan_info.loan_kind == "interest_and_repayment":
-        return MonthlyRepayment(
-            loan_id=loan_info.loan_id,
-            payment=round(interest_payment + repayment, 4),
-            amount_remaining=round(loan_info.amount - repayment, 4),
-            remaining_duration=loan_info.remaining_duration - 1,
-        )
-    if loan_info.loan_kind == "v_interest_and_repayment":
-        return MonthlyRepayment(
-            loan_id=loan_info.loan_id,
-            payment=round(variable_interest_payment + repayment, 4),
-            amount_remaining=round(loan_info.amount - repayment, 4),
-            remaining_duration=loan_info.remaining_duration - 1,
-        )
-    if loan_info.loan_kind == "introductory_offer_3":
-        if duration_so_far < 3:
-            return MonthlyRepayment(
-                loan_id=loan_info.loan_id,
-                payment=round(0, 4),
-                amount_remaining=round(loan_info.amount + interest_payment, 4),
-                remaining_duration=loan_info.remaining_duration - 1,
-            )
-        return MonthlyRepayment(
-            loan_id=loan_info.loan_id,
-            payment=round(interest_payment + repayment, 4),
-            amount_remaining=round(loan_info.amount - repayment, 4),
-            remaining_duration=loan_info.remaining_duration - 1,
-        )
-    if loan_info.loan_kind == "introductory_offer_12":
-        if duration_so_far < 12:
-            return MonthlyRepayment(
-                loan_id=loan_info.loan_id,
-                payment=round(0, 4),
-                amount_remaining=round(loan_info.amount + variable_interest_payment, 4),
-                remaining_duration=loan_info.remaining_duration - 1,
-            )
-        return MonthlyRepayment(
-            loan_id=loan_info.loan_id,
-            payment=round(variable_interest_payment + repayment, 4),
-            amount_remaining=round(loan_info.amount - repayment, 4),
-            remaining_duration=loan_info.remaining_duration - 1,
-        )
-    if loan_info.loan_kind == "introductory_offer_interst_only_6":
-        if duration_so_far < 6:
-            return MonthlyRepayment(
-                loan_id=loan_info.loan_id,
-                payment=round(interest_payment, 4),
-                amount_remaining=round(loan_info.amount, 4),
-                remaining_duration=loan_info.remaining_duration - 1,
-            )
-        return MonthlyRepayment(
-            loan_id=loan_info.loan_id,
-            payment=round(interest_payment + repayment, 4),
-            amount_remaining=round(loan_info.amount - repayment, 4),
-            remaining_duration=loan_info.remaining_duration - 1,
-        )
-    if loan_info.loan_kind == "introductory_offer_interst_only_9":
-        if duration_so_far < 9:
-            return MonthlyRepayment(
-                loan_id=loan_info.loan_id,
-                payment=round(interest_payment, 4),
-                amount_remaining=round(loan_info.amount, 4),
-                remaining_duration=loan_info.remaining_duration - 1,
-            )
-        return MonthlyRepayment(
-            loan_id=loan_info.loan_id,
-            payment=round(interest_payment + repayment, 4),
-            amount_remaining=round(loan_info.amount - repayment, 4),
-            remaining_duration=loan_info.remaining_duration - 1,
-        )
-    if loan_info.loan_kind == "good_credit_score":
-        if loan_info.current_credit_score >= 700:
-            return MonthlyRepayment(
-                loan_id=loan_info.loan_id,
-                payment=round(repayment, 4),
-                amount_remaining=round(loan_info.amount - repayment, 4),
-                remaining_duration=loan_info.remaining_duration - 1,
-            )
-        return MonthlyRepayment(
-            loan_id=loan_info.loan_id,
-            payment=round(interest_payment + repayment, 4),
-            amount_remaining=round(loan_info.amount - repayment, 4),
-            remaining_duration=loan_info.remaining_duration - 1,
-        )
-    if loan_info.loan_kind == "very_good_credit_score":
-        if loan_info.current_credit_score >= 850:
-            return MonthlyRepayment(
-                loan_id=loan_info.loan_id,
-                payment=round(repayment, 4),
-                amount_remaining=round(loan_info.amount - repayment, 4),
-                remaining_duration=loan_info.remaining_duration - 1,
-            )
-        return MonthlyRepayment(
-            loan_id=loan_info.loan_id,
-            payment=round(variable_interest_payment + repayment, 4),
-            amount_remaining=round(loan_info.amount - repayment, 4),
-            remaining_duration=loan_info.remaining_duration - 1,
-        )
-    if loan_info.loan_kind == "bad_credit_score":
-        if loan_info.current_credit_score < 650:
-            return MonthlyRepayment(
-                loan_id=loan_info.loan_id,
-                payment=round(interest_payment * 2 + repayment, 4),
-                amount_remaining=round(loan_info.amount - repayment, 4),
-                remaining_duration=loan_info.remaining_duration - 1,
-            )
-        return MonthlyRepayment(
-            loan_id=loan_info.loan_id,
-            payment=round(interest_payment + repayment, 4),
-            amount_remaining=round(loan_info.amount + interest_payment, 4),
-            remaining_duration=loan_info.remaining_duration - 1,
-        )
-    if loan_info.loan_kind == "very_bad_credit_score":
-        if loan_info.current_credit_score < 500:
-            return MonthlyRepayment(
-                loan_id=loan_info.loan_id,
-                payment=round(interest_payment * 2 + repayment, 4),
-                amount_remaining=round(loan_info.amount - repayment, 4),
-                remaining_duration=loan_info.remaining_duration - 1,
-            )
-        return MonthlyRepayment(
-            loan_id=loan_info.loan_id,
-            payment=round(interest_payment + repayment, 4),
-            amount_remaining=round(loan_info.amount + interest_payment, 4),
-            remaining_duration=loan_info.remaining_duration - 1,
-        )
+@dataclass
+class Repayment:
+    payment: float
+    amount_remaining_change: float
 
+
+class InterestStrategyABC(ABC):
+    @abstractmethod
+    def calculate_interest(self, loan_info: LoanInfo) -> float:
+        raise NotImplementedError
+
+
+class FixedInterestStrategy(InterestStrategyABC):
+    def calculate_interest(self, loan_info: LoanInfo) -> float:
+        return loan_info.interest / 12 * loan_info.amount
+
+
+class VariableInterestStrategy(InterestStrategyABC):
+    def __init__(self, libor: float):
+        self._libor = libor
+
+    def calculate_interest(self, loan_info: LoanInfo) -> float:
+        return (loan_info.interest + self._libor) / 12 * loan_info.amount
+
+
+class RepaymentStrategyABC(ABC):
+    def __init__(self, interest_strategy: InterestStrategyABC):
+        self._interest_strategy = interest_strategy
+
+    def _calculate_interest_payment(self, loan_info: LoanInfo):
+        return self._interest_strategy.calculate_interest(loan_info)
+
+    def _repayment_payment(self, loan_info: LoanInfo):
+        return loan_info.amount / loan_info.remaining_duration
+
+    @abstractmethod
+    def calculate_monthly_repayment(self, loan_info: LoanInfo) -> Repayment:
+        raise NotImplementedError
+
+
+class InterestOnlyRepaymentStrategy(RepaymentStrategyABC):
+    def calculate_monthly_repayment(self, loan_info: LoanInfo) -> Repayment:
+        interest_payment = self._calculate_interest_payment(loan_info)
+        if loan_info.remaining_duration <= 1:
+            return Repayment(loan_info.amount + interest_payment, -loan_info.amount)
+        return Repayment(interest_payment, 0)
+
+
+class InterestAndRepaymentStrategy(RepaymentStrategyABC):
+    def calculate_monthly_repayment(self, loan_info: LoanInfo) -> Repayment:
+        repayment = self._repayment_payment(loan_info)
+        interest = self._calculate_interest_payment(loan_info)
+        return Repayment(repayment + interest, -repayment)
+
+
+class IntroductoryOfferRepaymentStrategy(InterestAndRepaymentStrategy):
+    def __init__(self, interest_strategy: InterestStrategyABC, offer_duration):
+        super().__init__(interest_strategy)
+        self._offer_duration = offer_duration
+
+    def calculate_monthly_repayment(self, loan_info: LoanInfo) -> Repayment:
+        duration_so_far = loan_info.original_duration - loan_info.remaining_duration
+        if duration_so_far < self._offer_duration:
+            return Repayment(0, self._calculate_interest_payment(loan_info))
+
+        return super().calculate_monthly_repayment(loan_info)
+
+
+class IntroductoryInterestOnlyOfferRepaymentStrategy(IntroductoryOfferRepaymentStrategy):
+    def calculate_monthly_repayment(self, loan_info: LoanInfo) -> Repayment:
+        duration_so_far = loan_info.original_duration - loan_info.remaining_duration
+        if duration_so_far < self._offer_duration:
+            return Repayment(self._calculate_interest_payment(loan_info), 0)
+
+        return super().calculate_monthly_repayment(loan_info)
+
+
+class GoodCreditScoreRepaymentStrategy(InterestAndRepaymentStrategy):
+    def __init__(self, interest_strategy: InterestStrategyABC, threshold: int):
+        super().__init__(interest_strategy)
+        self._threshold = threshold
+
+    def calculate_monthly_repayment(self, loan_info: LoanInfo) -> Repayment:
+        repayment = self._repayment_payment(loan_info)
+        if loan_info.current_credit_score >= self._threshold:
+            return Repayment(repayment, -repayment)
+        return super().calculate_monthly_repayment(loan_info)
+
+
+class BadCreditScoreRepaymentStrategy(InterestAndRepaymentStrategy):
+    def __init__(self, interest_strategy: InterestStrategyABC, threshold: int):
+        super().__init__(interest_strategy)
+        self._threshold = threshold
+
+    def calculate_monthly_repayment(self, loan_info: LoanInfo) -> Repayment:
+        repayment = self._repayment_payment(loan_info)
+        interest = self._calculate_interest_payment(loan_info)
+        if loan_info.current_credit_score < self._threshold:
+            return Repayment(repayment + interest * 2, -repayment)
+        return super().calculate_monthly_repayment(loan_info)
+
+
+def calculate_repayment(loan_info: LoanInfo, strategy: RepaymentStrategyABC) -> MonthlyRepayment:
+    repayment = strategy.calculate_monthly_repayment(loan_info)
     return MonthlyRepayment(
         loan_id=loan_info.loan_id,
-        payment=round(interest_payment + repayment, 4),
-        amount_remaining=round(loan_info.amount - repayment, 4),
+        payment=round(repayment.payment, 4),
+        amount_remaining=round(loan_info.amount + repayment.amount_remaining_change, 4),
         remaining_duration=loan_info.remaining_duration - 1,
     )
+
+
+def create_monthly_repayment(loan_info: LoanInfo) -> MonthlyRepayment:
+    fixed_interest = FixedInterestStrategy()
+    variable_interest = VariableInterestStrategy(loan_info.libor)
+    default_strategy = InterestAndRepaymentStrategy(fixed_interest)
+    repayment_strategy: RepaymentStrategyABC = {
+        "interest_only": InterestOnlyRepaymentStrategy(fixed_interest),
+        "interest_only_variable": InterestOnlyRepaymentStrategy(variable_interest),
+        "interest_and_repayment": InterestAndRepaymentStrategy(fixed_interest),
+        "v_interest_and_repayment": InterestAndRepaymentStrategy(variable_interest),
+        "introductory_offer_3": IntroductoryOfferRepaymentStrategy(fixed_interest, 3),
+        "introductory_offer_12": IntroductoryOfferRepaymentStrategy(variable_interest, 12),
+        "introductory_offer_interst_only_6": IntroductoryInterestOnlyOfferRepaymentStrategy(fixed_interest, 6),
+        "introductory_offer_interst_only_9": IntroductoryInterestOnlyOfferRepaymentStrategy(fixed_interest, 9),
+        "good_credit_score": GoodCreditScoreRepaymentStrategy(fixed_interest, 700),
+        "very_good_credit_score": GoodCreditScoreRepaymentStrategy(variable_interest, 850),
+        "bad_credit_score": BadCreditScoreRepaymentStrategy(fixed_interest, 650),
+        "very_bad_credit_score": BadCreditScoreRepaymentStrategy(fixed_interest, 500),
+        # TODO: add actual solutions
+    }.get(loan_info.loan_kind, default_strategy)
+
+    return calculate_repayment(loan_info, repayment_strategy)
 
 
 def run_example():

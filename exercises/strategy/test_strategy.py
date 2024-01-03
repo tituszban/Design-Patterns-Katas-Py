@@ -18,3 +18,5 @@ def test_equal_amounts():
         amount_remaining=9722.2222,
         remaining_duration=35,
     )
+
+# TODO: Add more tests
