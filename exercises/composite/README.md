@@ -4,7 +4,7 @@ The Composit Pattern is a Structural pattern first published in the Gang of Four
 
 TODO: Write about the use cases of this pattern
 
-## Composite pattern exercise
+## Composite Pattern Exercise
 
 In this exercise, you are validating a user registration into your system. There are multiple different ways the user can register, and you must not only validate that the registration is valid, but also provide verbose information to the user if it is not, including each of the fields that are incorrect, and which of them the user must complete.
 
@@ -64,7 +64,22 @@ class PropertyMinLength:
 <details>
   <summary>Hint 2</summary>
 
-  Now think about how you could could create a condition, with the same `validate` method signature, but one that combines multiple other conditions. Such as all conditions must be valid:
+Here is a list of examples for the kind of condition classes that might be useful:
+    
+ - Property minimum length
+ - Property length between values
+ - Property contains certain characters
+ - Property matches a regular expression
+ - Property is one of a set of values
+
+With these, consider next how these conditions can be combined, and if those combined could have the same signature as the existing conditions...
+
+</details>
+
+<details>
+  <summary>Hint 3</summary>
+
+  Think about how you could could create a condition, with the same `validate` method signature, but one that combines multiple other conditions. Such as both conditions must be valid:
 ```py
 class CombineAnd:
     def __init__(self, condition1, condition2):
@@ -75,13 +90,29 @@ class CombineAnd:
         result1, error1 = condition1.validate(user_data)
         result2, error2 = condition2.validate(user_data)
 
-        return result1 and result2, '\n'.join([error1, error2])
+        success = result1 and result2
+
+        if success:
+            return True, ""
+
+        return False, f"All of the following errors must be fixed:\n" + '\n'.join([error1, error2])
 
 CombineAnd(
     PropertyMinLength("password", 8),
     PropertyContainsDigit("password"),  # You would also need to create this other condition
 )
 ```
+
+Note that this is not a full solution, and would not correctly handle indenting. It's for you to figure that out.
 </details>
 
-TODO: Add more hints
+<details>
+  <summary>Hint 4</summary>
+
+Just creating composite conditions that combine other conditions, one where all have to be valid, and one where at least one has to be valid should be enough to solve the exercise.
+
+However, you need them to support more than nested conditions for clear formatting. Also, you must figure out how to correctly name the error messages including the relevant details, and how to indent all the nested errors, to achieve the same result as the starting code.
+
+At the end, you code could look as simple as a set of nested conditions, and then a single `validate` call.
+
+</details>
