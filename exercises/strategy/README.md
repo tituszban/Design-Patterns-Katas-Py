@@ -2,7 +2,7 @@
 
 The Strategy Pattern is a Behavioural pattern first published in the Gang of Four book _Design Patterns: Elements of Reusable Object-Oriented Software_.
 
-TODO: Write about the use cases of this pattern
+TODO: Write about the use cases of this pattern; In the meantime, read about the [Strategy Pattern on Wikipedia](https://en.wikipedia.org/wiki/Strategy_pattern)
 
 ## Strategy Pattern Exercise
 

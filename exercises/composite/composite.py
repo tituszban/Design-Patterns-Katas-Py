@@ -105,7 +105,7 @@ class ConditionOr(CompositeCondition):
         )
 
 
-def validate(user_data: dict[str, str]):
+def validate(user_data: dict[str, str]) -> tuple[bool, str]:
     conditions = ConditionOr(
         "user",
         ConditionAnd(
