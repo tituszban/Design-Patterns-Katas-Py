@@ -2,21 +2,25 @@
 
 Welcome to this repository of refactoring exercises (or Katas). The goal of each of these exercises is to learn about [Design Patterns](https://en.wikipedia.org/wiki/Software_design_pattern) by taking a semi-realistic example and improving it using one of the Design Patterns.
 
-Each of the folders within [exercises](./exercises/) contains one folder with the exercise setup, and a README with more details. To see an example solution, try the [`solutions` branch](https://github.com/tituszban/Design-Patterns-Katas-Py/tree/solutions)
+Each of the folders within [exercises](./exercises/) contains one folder with the exercise setup, and a README with more details. To see an example solution, try the [`solutions` branch](https://github.com/tituszban/Design-Patterns-Katas-Py/tree/solutions), but keep in mind that it is only one valid solution, and yours may differ and still be valid.
+
 
 ## Who are these exercises for?
 
 These exercises are designed for any software engineer looking to learn about and/or practice design patterns. The goal is to make each of them reasonably beginner friendly, however, they should offer enough of a challenge for more seasoned developers.
 
+
 ## Knowledge prerequisits
 
-Although these exercises are aimed at less experienced developers, there are some requirements to be able to meaningfully complete the exericses. Understanding of object oriented programming is needed. And as this repo is in Python, you also need to know Python. Also, some knowledge of regular expressions is recommended for some of the exercises. But not crucial. If you don't understand something, [Regex101](https://regex101.com/) can probably help you.
+Although these exercises are aimed at less experienced developers, there are some requirements to be able to meaningfully complete the exericses. Understanding of object oriented programming is needed. And as this repo is in Python, you also need to know Python. It is also very useful to understand writing unit tests, when doing this kind of refactoring. Also, some knowledge of regular expressions is recommended for some of the exercises. But not crucial. If you don't understand something, [Regex101](https://regex101.com/) can probably help you.
 
 The code is also using type hints. If you are not familiar with these, or don't want to bother, just ignore/delete them.
+
 
 ## Code prerequisits
 
 Python 3.12 or higher. It may work on lower versions, but I have not tested those.
+
 
 ## Setup
 
@@ -36,9 +40,10 @@ pip3 install -r requirements.txt
 
 That is it.
 
+
 ## Some help for the exercises
 
-Although each exercise spec is described in their relevant README, they are meant to be difficult to read and understand. Think about this as legacy code you came across. Before you start refactoring, you probably want to read and understand the code. Maybe even add comments if that helps.
+Although each exercise spec is described in their relevant README, the code is meant to be difficult to read and understand. Think about this as legacy code you came across. Before you start refactoring, you probably want to read and understand the code. Maybe even add comments if that helps.
 
 Then you probably want to add unit tests. Each folder will have an empty pytest file setup. Consider adding a number of cases to validate if your code still works the same, or if it regressed while you were changing it. The point of refactoring, is to change the internal code structure, without changing the output. (You can chose to change the output if you like, but it will make it harder to automate comparisons and regression testing. Do so at your own risk.)
 
@@ -51,9 +56,10 @@ Remember, the point of design patterns isn't to make code more terse. The point 
 
 You are likely going to end up with more code by the end then before, and that is just fine. The goal is to write code that you are happy with, and learn something along the way.
 
-Each exercise will also include challenges of various difficulty. If you can't do the harder things, don't feel bad. Feel free to come back to them later. Similarly, each exercise will include some hints. Feel free to use them.
+Each exercise is designed for one specific design pattern, but you might find yourself using more than one. That is perfectly fine. After the exericse, you should think about what other patterns you could also apply to it.
 
-And finally, if you have done an exercise, you may want to think about what other design patterns you could apply to it.
+Each exercise will also include challenges of various difficulty. If you can't do the harder things, don't feel bad. Feel free to come back to them later. Similarly, each exercise will include some hints. Feel free to use them. You can also not do the challenges. Just refactoring the code and keeping the same behaviour is valuable by itself.
+
 
 ## Run your code
 
@@ -75,6 +81,7 @@ Or, you may chose to write unit tests, and run those:
 ```
 pytest ./exercises/composite/
 ```
+
 
 ## Feedback and contribution
 

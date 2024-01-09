@@ -1,7 +1,7 @@
 import re
 
 
-def validate(user_data: dict[str, str]):
+def validate(user_data: dict[str, str]) -> tuple[bool, str]:
     federation_errors: list[str] = []
     if "federation_provider" not in user_data or user_data["federation_provider"] not in ["foo", "bar"]:
         federation_errors.append("Property 'federation_provider' must be one of 'foo' or 'bar'")
