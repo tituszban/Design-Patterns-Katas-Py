@@ -346,11 +346,7 @@ class RedoCommand(CommandABC):
         return
 
 
-def execute_commands(commands: list[Command]):
-    document: dict[int, str] = {}
-
-    history = History(document)
-
+class CommandABCFactory:
     command_classes: list[type[CommandABC]] = [
         InsertCommand,
         UpdateCommand,
@@ -365,17 +361,29 @@ def execute_commands(commands: list[Command]):
         ClearCommand,
     ]
 
-    for command in commands:
+    def create_command(self, command: Command):
         command_instance = next(
             (
                 command_class.from_command(command)
-                for command_class in command_classes
+                for command_class in self.command_classes
                 if command.command_kind == command_class.command_kind
             ),
             None,
         )
         if command_instance is None:
             raise ValueError(f"Unknown command: {command}")
+        return command_instance
+
+
+def execute_commands(commands: list[Command]):
+    document: dict[int, str] = {}
+
+    history = History(document)
+
+    command_factory = CommandABCFactory()
+
+    for command in commands:
+        command_instance = command_factory.create_command(command)
         history.do(command_instance)
 
     return document
