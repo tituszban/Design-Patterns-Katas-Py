@@ -38,8 +38,8 @@ The different loan kinds available (they are named inconsistently, for legacy re
  - `v_interest_and_repayment`: Same as `interest_and_repayment`, but the user pays a variable interest
  - `introductory_offer_3`: In this introductory offer, the user doesn't pay anything for the first 3 months. These always have a duration longer than 6 months (you don't have to validate this). The user does acrew interest during this time however. After that, they repay at a fixed rate same as `interest_and_repayment`
  - `introductory_offer_12`: In this offer the user doesn't pay anything for 12 months (but does acrew interest). After that, they repay at a flexible rate, same as `v_interest_and_repayment`. (These are always at least 24 months in duration)
- - `introductory_offer_interst_only_6`: In this offer, the user only pays interest for the first 6 months, then they start repaying at a fixed rate, same as `interest_and_repayment` (minimum duration 12 months)
- - `introductory_offer_interst_only_9`: Same as `introductory_offer_interst_only_6` but with a 9 month initial period (and minimum duration of 18 months)
+ - `introductory_offer_interest_only_6`: In this offer, the user only pays interest for the first 6 months, then they start repaying at a fixed rate, same as `interest_and_repayment` (minimum duration 12 months)
+ - `introductory_offer_interest_only_9`: Same as `introductory_offer_interest_only_6` but with a 9 month initial period (and minimum duration of 18 months)
  - `good_credit_score`: This is the same as a `interest_and_repayment`, but if in a given month, a user has a credit score of at least 700, they don't pay or acrew any interest.
  - `very_good_credit_score`: Similar to `good_credit_score`, but it's offered for at a variable rate, and the user must have a credit score of at least 850
  - `bad_credit_score`: similar to `good_credit_score`, this is an `interest_and_repayment` loan, but if the user has a credit score worse than 650, they must pay double the interest that month

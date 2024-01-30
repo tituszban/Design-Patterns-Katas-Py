@@ -98,7 +98,7 @@ def create_monthly_repayment(loan_info: LoanInfo) -> MonthlyRepayment:
             amount_remaining=round(loan_info.amount - repayment, 4),
             remaining_duration=loan_info.remaining_duration - 1,
         )
-    if loan_info.loan_kind == "introductory_offer_interst_only_6":
+    if loan_info.loan_kind == "introductory_offer_interest_only_6":
         if duration_so_far < 6:
             return MonthlyRepayment(
                 loan_id=loan_info.loan_id,
@@ -112,7 +112,7 @@ def create_monthly_repayment(loan_info: LoanInfo) -> MonthlyRepayment:
             amount_remaining=round(loan_info.amount - repayment, 4),
             remaining_duration=loan_info.remaining_duration - 1,
         )
-    if loan_info.loan_kind == "introductory_offer_interst_only_9":
+    if loan_info.loan_kind == "introductory_offer_interest_only_9":
         if duration_so_far < 9:
             return MonthlyRepayment(
                 loan_id=loan_info.loan_id,
